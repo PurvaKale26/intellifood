@@ -305,23 +305,29 @@ tabButtons.forEach(button => {
 });
 
 /************************************
- * IMAGE PREVIEW
+ * IMAGE PREVIEW (FINAL FIX)
  ************************************/
 function showImagePreview(file) {
   if (!file) return;
+
   const reader = new FileReader();
-  reader.onload = () => {
-    imagePreview.innerHTML = `<img src="${reader.result}" alt="Preview" />`;
+  reader.onload = function () {
+    imagePreview.innerHTML = `
+      <img src="${reader.result}" alt="Uploaded Image Preview">
+    `;
+    imagePreview.classList.add("active");
   };
   reader.readAsDataURL(file);
 }
 
-imageUploadInput.addEventListener("change", e =>
-  showImagePreview(e.target.files[0])
-);
-cameraInput.addEventListener("change", e =>
-  showImagePreview(e.target.files[0])
-);
+imageUploadInput.addEventListener("change", function (e) {
+  showImagePreview(e.target.files[0]);
+});
+
+cameraInput.addEventListener("change", function (e) {
+  showImagePreview(e.target.files[0]);
+});
+
 
 /************************************
  * ELEMENT REFERENCES

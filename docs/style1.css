@@ -297,8 +297,8 @@ ul {
     height: 400px;
     background: linear-gradient(135deg, var(--primary-light) 0%, #a7f3d0 100%);
     border-radius: 24px;
-    background-image: url('https://i.redd.it/7g4a2tc27n2e1.jpeg');        
-    background-size: cover; 
+    background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
     background-position: center;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
     position: relative;
@@ -611,20 +611,35 @@ ul {
     color: var(--text-light);
 }
 
+/* IMAGE PREVIEW – FULL WIDTH & CENTERED */
 .image-preview {
     display: none;
-    grid-column: 1 / -1;
+    grid-column: 1 / -1;          /* ✅ span full grid */
+    width: 100%;
     margin-top: 2rem;
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    background: var(--bg-light);
-    border: 2px solid var(--primary-color);
 }
 
 .image-preview.active {
-    display: block;
-    animation: fadeInUp 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+
+    background: #ffffff;
+    border-radius: 20px;
+    border: 2px solid var(--primary-color);
 }
+
+/* IMAGE */
+.image-preview img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+
 
 .file-input {
     display: none;
@@ -1160,3 +1175,432 @@ ul {
         font-size: 3rem;
     }
 }
+/* --- New Global Enhancements --- */
+:root {
+    /* Refined modern palette */
+    --primary-gradient: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+/* --- Smoother Glassmorphism for the Header --- */
+.main-header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: background 0.3s ease;
+}
+
+/* --- The "Floating" Nav Menu --- */
+.nav-menu {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.nav-link:hover {
+    background: var(--primary-gradient);
+    color: white !important;
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* --- High-End Hero Section --- */
+.hero-section {
+    background: radial-gradient(circle at top right, #f0fdf4, #ffffff, #eff6ff);
+}
+
+.hero-visual {
+    border: 8px solid white;
+    box-shadow: var(--shadow-lg);
+    border-radius: 30px;
+    transform: perspective(1000px) rotateY(-5deg); /* Slight 3D effect */
+    transition: transform 0.5s ease;
+}
+
+.hero-visual:hover {
+    transform: perspective(1000px) rotateY(0deg) scale(1.02);
+}
+
+/* --- Interactive Analyzer Card --- */
+.analyzer-container {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid white;
+    backdrop-filter: blur(10px);
+}
+
+/* --- Styled Dropzones --- */
+.upload-label, .camera-label {
+    border: 2px dashed #cbd5e1;
+    background: #f8fafc;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.upload-label:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-5px);
+}
+
+/* --- Animated Analysis Results --- */
+.findings-grid > div {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: white;
+    overflow: hidden;
+}
+
+/* Add a colored accent bar to cards */
+.findings-grid > div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-gradient);
+}
+
+/* --- Modern Buttons --- */
+.analyze-button {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: var(--primary-gradient);
+    border: none;
+}
+
+.analyze-button:hover {
+    filter: brightness(1.1);
+    letter-spacing: 2px; /* Slight expansion effect */
+}
+
+/* =====================================================
+   KEY FINDINGS – PROFESSIONAL VISUAL HIERARCHY
+   (ADD ONLY – HTML UNCHANGED)
+   ===================================================== */
+
+/* Improve spacing inside each finding card */
+.findings-grid > div {
+    padding: 2rem;
+}
+
+/* Base style for each point */
+.findings-grid p {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.9rem;
+    line-height: 1.75;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+/* Stronger labels */
+.findings-grid p strong {
+    display: inline-block;
+    font-weight: 800;
+    margin-right: 6px;
+}
+
+/* WHY IT MATTERS */
+.findings-grid p:has(strong:contains("Why it matters")) {
+    background: #eff6ff;
+    border-left: 4px solid #60a5fa;
+}
+
+/* RISK LEVEL */
+.findings-grid p:has(strong:contains("Risk level")) {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    font-weight: 600;
+}
+
+/* HOW MUCH IS OKAY */
+.findings-grid p:has(strong:contains("How much is okay")) {
+    background: #ecfdf5;
+    border-left: 4px solid #10b981;
+}
+
+/* TRADEOFF */
+.findings-grid p:has(strong:contains("Tradeoff")) {
+    background: #eef2ff;
+    border-left: 4px solid #6366f1;
+}
+
+/* Remove extra spacing at end */
+.findings-grid p:last-child {
+    margin-bottom: 0;
+}
+
+/* =====================================================
+   KEY FINDINGS – ICONS + SOFT HOVER (PROFESSIONAL)
+   ===================================================== */
+
+/* Base style for each insight row */
+.findings-grid p {
+    position: relative;
+    padding: 0.9rem 1rem 0.9rem 2.6rem;
+    border-radius: 10px;
+    margin-bottom: 0.9rem;
+    line-height: 1.75;
+    font-size: 0.95rem;
+    background: #f9fafb;
+    transition: all 0.25s ease;
+}
+
+/* Label styling */
+.findings-grid p strong {
+    font-weight: 800;
+}
+
+/* Hover effect – subtle lift + glow */
+.findings-grid p:hover {
+    transform: translateX(4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* ICON BASE */
+.findings-grid p::before {
+    position: absolute;
+    left: 0.9rem;
+    top: 0.9rem;
+    font-size: 1.05rem;
+}
+
+/* WHY IT MATTERS */
+.findings-grid p:has(strong:contains("Why it matters")) {
+    background: #eff6ff;
+    border-left: 4px solid #60a5fa;
+}
+.findings-grid p:has(strong:contains("Why it matters"))::before {
+    content: "🧠";
+}
+
+/* RISK LEVEL */
+.findings-grid p:has(strong:contains("Risk level")) {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+}
+.findings-grid p:has(strong:contains("Risk level"))::before {
+    content: "⚠️";
+}
+
+/* HOW MUCH IS OKAY */
+.findings-grid p:has(strong:contains("How much is okay")) {
+    background: #ecfdf5;
+    border-left: 4px solid #10b981;
+}
+.findings-grid p:has(strong:contains("How much is okay"))::before {
+    content: "✅";
+}
+
+/* TRADEOFF */
+.findings-grid p:has(strong:contains("Tradeoff")) {
+    background: #eef2ff;
+    border-left: 4px solid #6366f1;
+}
+.findings-grid p:has(strong:contains("Tradeoff"))::before {
+    content: "⚖️";
+}
+
+/* Remove last spacing */
+.findings-grid p:last-child {
+    margin-bottom: 0;
+}
+
+/* =====================================================
+   RESULTS – ANIMATED ENTRY (PROFESSIONAL, SOFT)
+   ===================================================== */
+
+/* Main results container animation */
+.results-container.active {
+    animation: resultsFadeUp 0.6s ease forwards;
+}
+
+@keyframes resultsFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Section-level stagger */
+.intent-card,
+.findings-section,
+.analysis-section,
+.uncertainty-card,
+.recommendations-section {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: sectionReveal 0.6s ease forwards;
+}
+
+.intent-card { animation-delay: 0.1s; }
+.findings-section { animation-delay: 0.2s; }
+.analysis-section { animation-delay: 0.3s; }
+.uncertainty-card { animation-delay: 0.4s; }
+.recommendations-section { animation-delay: 0.5s; }
+
+@keyframes sectionReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================================
+   KEY FINDINGS – STAGGERED CARD ENTRY
+   ===================================================== */
+
+.findings-grid > div {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: cardReveal 0.45s ease forwards;
+}
+
+/* Stagger effect */
+.findings-grid > div:nth-child(1) { animation-delay: 0.2s; }
+.findings-grid > div:nth-child(2) { animation-delay: 0.3s; }
+.findings-grid > div:nth-child(3) { animation-delay: 0.4s; }
+.findings-grid > div:nth-child(4) { animation-delay: 0.5s; }
+
+@keyframes cardReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================================
+   INSIDE CARD – LINE BY LINE SOFT REVEAL
+   ===================================================== */
+
+.findings-grid p {
+    opacity: 0;
+    transform: translateX(-6px);
+    animation: lineReveal 0.35s ease forwards;
+}
+
+/* Subtle stagger inside each card */
+.findings-grid p:nth-child(1) { animation-delay: 0.15s; }
+.findings-grid p:nth-child(2) { animation-delay: 0.25s; }
+.findings-grid p:nth-child(3) { animation-delay: 0.35s; }
+.findings-grid p:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes lineReveal {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* =====================================================
+   INGREDIENT-WIDE HOVER INTERACTION
+   ===================================================== */
+
+/* Entire ingredient card hover */
+.findings-grid > div {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: pointer;
+}
+
+.findings-grid > div:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    border-color: var(--primary-color);
+}
+
+/* =====================================================
+   INDIVIDUAL LINE HOVER (WHERE CURSOR MOVES)
+   ===================================================== */
+
+.findings-grid p {
+    transition: background 0.25s ease,
+                padding-left 0.25s ease,
+                box-shadow 0.25s ease;
+    border-radius: 10px;
+}
+
+/* Hover on each ingredient detail line */
+.findings-grid p:hover {
+    background: rgba(16, 185, 129, 0.08);
+    padding-left: 3.1rem; /* gentle movement */
+    box-shadow: inset 4px 0 0 var(--primary-color);
+}
+
+/* Keep text readable */
+.findings-grid p:hover strong {
+    color: var(--text-dark);
+}
+
+/* =====================================================
+   CLEAN CURSOR FEEDBACK (SUBTLE)
+   ===================================================== */
+
+.findings-grid p {
+    cursor: default;
+}
+
+.findings-grid > div:hover p {
+    cursor: pointer;
+}
+
+/* =====================================================
+   FINAL OVERRIDE – CLEAN BLUE OUTER + GREEN INNER HOVER
+   (Curved, Premium, Professional)
+   ===================================================== */
+
+/* ---------- INGREDIENT CARD (OUTER) ---------- */
+.findings-grid > div {
+    border-radius: 20px; /* smoother card edges */
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+}
+
+/* BLUE outer hover */
+.findings-grid > div:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-color);
+    box-shadow: 0 18px 40px rgba(99, 102, 241, 0.22);
+}
+
+/* ---------- INDIVIDUAL POINT (INNER) ---------- */
+.findings-grid p {
+    border-radius: 14px; /* softer inner edges */
+    transition: background 0.25s ease,
+                padding-left 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+/* GREEN inner hover */
+.findings-grid p:hover {
+    background: rgba(16, 185, 129, 0.12);
+    padding-left: 3.1rem;
+    box-shadow: inset 5px 0 0 var(--primary-color);
+}
+
+/* Ensure icon stays centered visually */
+.findings-grid p::before {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ---------- REMOVE HARSH FEEL ---------- */
+.findings-grid p:hover,
+.findings-grid > div:hover {
+    outline: none;
+}
+
+/* ---------- CURSOR CLARITY ---------- */
+.findings-grid > div {
+    cursor: pointer;
+}
+
+.findings-grid p {
+    cursor: pointer;
+}
+
