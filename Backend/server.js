@@ -1,13 +1,13 @@
-
-
-
 import express from "express";
 import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // 🔧 __dirname fix for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -85,42 +85,13 @@ Respond ONLY with valid JSON:
 Ingredients: ${text}
 `;
 
-    const response = await fetch(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
-          temperature: 0.3,
-          messages: [
-            {
-              role: "system",
-              content:
-                "You explain food ingredient impact with balance, clarity, and uncertainty.",
-            },
-            {
-              role: "user",
-              content: prompt,
-            },
-          ],
-        }),
-      }
-    );
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+    });
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("❌ Groq API error:", errText);
-      return res.status(500).json({
-        error: "Groq API request failed",
-      });
-    }
+    const result = await model.generateContent(prompt);
 
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
+    const content = result.response.text();
 
     console.log("🧠 RAW AI RESPONSE:\n", content);
 
@@ -140,9 +111,10 @@ Ingredients: ${text}
     }
 
     const parsed = JSON.parse(match[0]);
+
     res.json(parsed);
   } catch (error) {
-    console.error("❌ Backend crash:", error.message);
+    console.error("❌ Backend crash:", error);
     res.status(500).json({
       error: "AI analysis failed",
     });
